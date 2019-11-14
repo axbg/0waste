@@ -1,4 +1,4 @@
-import json
+import json 
 import base64
 from django.shortcuts import render
 from rest_framework.views import APIView

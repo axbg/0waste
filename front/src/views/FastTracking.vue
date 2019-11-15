@@ -29,6 +29,7 @@
           </div>
           <div v-else-if="loading">
             <md-progress-spinner class="md-accent" md-mode="indeterminate" :md-diameter="100"></md-progress-spinner>
+            <h3>Looking for waste...</h3>
           </div>
           <div class="result-container" v-else="!displayUpload && !loading">
               <div v-for="photo in processedFiles">
@@ -127,6 +128,7 @@ h4 {
   max-height: 500px;
 }
 .legend-container {
+  margin-bottom: 15px;
   text-align: center;
   font-size: 1.5em;
   text-shadow: 1px 1px black;

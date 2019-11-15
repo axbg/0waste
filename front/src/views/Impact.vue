@@ -36,13 +36,15 @@
           </div>
           <div v-else-if="loading">
             <md-progress-spinner class="md-accent" md-mode="indeterminate" :md-diameter="100"></md-progress-spinner>
+            <h3>Working hard. It may take a few seconds...."</h3>
           </div>
           <div class="result-container" v-else="!displayUpload && !loading">
               <div v-for="photo in processedFiles">
               <md-card class="md-elevation-5">
                 <div v-html="computeEvolution(photo.objectsBefore, photo.objectsAfter)"></div>
-                <img v-bind:src="'data:image/jpg;base64,'+photo.before"/>
-                <img v-bind:src="'data:image/jpg;base64,'+photo.after"/>
+                <img v-bind:src="'data:image/jpg;base64,'+photo.before" class="impact-photo"/>
+                <span>  </span>
+                <img v-bind:src="'data:image/jpg;base64,'+photo.after" class="impact-photo"/>
                 <br/>
                 <span>Before | </span>
                 <span>After</span>
@@ -83,22 +85,36 @@ export default {
     },
     uploadPhotosBefore: function(files) {
       this.filesBefore = files;
-      console.log(files);
       this.$toasted.show("Images were loaded")
     },
     uploadPhotosAfter: function(files) {
       this.filesAfter = files;
       this.$toasted.show("Images were loaded")
     },
-    processPhotos: function() {
-      this.loading = false;
+    processPhotos: async function() {
+      if(this.filesAfter.length !== this.filesBefore.length) {
+        this.$toasted.show("The number of photos is not equal");
+        return;
+      }
+
+      this.loading = true;
       this.displayUpload = false;
-      console.log(this.files);
-      //compose request
-      //send to server
-      //parse result
-      this.processedFiles.push({before: "base64here", objectsBefore: 5, objectsAfter: 3}, {before: "base64here", after: "base64here", objectsBefore: 3, objectsAfter: 8})
-      // this.displayUpload = false;
+
+      const formData = new FormData();
+
+      for(let i = 0; i < this.filesAfter.length; i++) {
+        formData.append("before", this.filesBefore[i]);
+        formData.append("after", this.filesAfter[i]);
+      }
+
+      const result = await this.$axios.post(this.baseUrl + "/impact", formData, {
+        headers: {'Content-Type': 'multipart/form-data'}});
+
+      for(let i = 0; i < result.data.beforeImages.length; i++) {
+        this.processedFiles.push({before: result.data.beforeImages[i], after: result.data.afterImages[i], 
+          objectsBefore: result.data.beforeObjects[i], objectsAfter: result.data.afterObjects[i]});
+      }
+      this.loading = false
     }
   },
   mounted: function() {
@@ -135,10 +151,11 @@ export default {
 h4 {
   margin: 0;
 }
-img {
-  max-height: 300px;
+.impact-photo {
+  max-height: 350px;
 }
 .legend-container {
+  margin-bottom: 15px;
   text-align: center;
   font-size: 1.5em;
   text-shadow: 1px 1px black;

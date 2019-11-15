@@ -12,6 +12,7 @@ import PIL
 from PIL import Image
 import cv2
 import numpy as np
+from .models import FastTrack
 
 # Create your views here.
 def get_color_by_type(waste_type):
@@ -100,34 +101,42 @@ class FastTrackEndpoint(APIView):
                 [image, objs] = splashImage(img)
                 images.append(image)
                 objects.append(objs)
+                log = FastTrack(raw="", annotated=image)
+                log.save()
 
         return Response({"annotated": images, "objects": objects})
 
 class ImpactMeasurementEndpoint(APIView):
     def post(self, request):
-        print(request.data)
         before = request.FILES.getlist('before')
         after = request.FILES.getlist('after')
-        
+
         beforeImages = []
         afterImages = []
         beforeObjects = []
         afterObjects = []
 
-        for i in range(0, before.length):
+        for i in range(0, len(before)):
             with before[i].open("rb") as img:
                 [image, objs] = splashImage(img)
                 beforeImages.append(image)
                 beforeObjects.append(objs)
+                log = FastTrack(raw="", annotated=image)
+                log.save()
             
             with after[i].open("rb") as img:
                 [image, objs] = splashImage(img)
                 afterImages.append(image)
                 afterObjects.append(objs)
+                log = FastTrack(raw="", annotated=image)
+                log.save()
 
         return Response({"beforeImages": beforeImages, "afterImages": afterImages, "beforeObjects": beforeObjects, "afterObjects": afterObjects})
 
 class CatalogueEndpoint(APIView):
     def get(self, request):
-        
-        return Response("yz")
+        logs = FastTrack.objects.all()
+        annotated = []
+        for log in logs:
+            annotated.append((log.annotated[2:])[:-1])
+        return Response({"photos": annotated})

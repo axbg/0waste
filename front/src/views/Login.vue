@@ -1,8 +1,9 @@
 <template>
+  <div class="background-container">
   <div class="login-container">
     <md-card class="md-elevation-12">
       <md-card-header>
-        <div class="md-title">2wiser</div>
+        <div class="md-title">0waste</div>
       </md-card-header>
       <md-card-content class="credentials-container">
         <md-field md-clearable>
@@ -16,6 +17,7 @@
         <md-button class="md-raised md-accent" @click="login">Let's go</md-button>
       </md-card-content>
     </md-card>
+  </div>
   </div>
 </template>
 
@@ -57,6 +59,11 @@ export default {
 </script>
 
 <style>
+.background-container {
+  background-image: url("https://images.pexels.com/photos/1533720/pexels-photo-1533720.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  height:100%;
+  width:100%;
+}
 .login-container {
   margin: 0 auto;
   width: 30%;

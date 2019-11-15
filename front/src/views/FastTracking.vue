@@ -13,6 +13,13 @@
         </md-card-header>
         <md-card-content class="card-content">
           <p>Upload one or more photos of different places and generate a heatmap of plastic waste</p>
+          <div class="legend-container">
+            <span style="color: red">Bottle |</span> 
+            <span style="color: green"> Rope |</span> 
+            <span style="color: orange"> Bag |</span> 
+            <span style="color: blue"> Cap |</span>
+            <span style="color: #FFFF00"> General Waste</span>
+          </div>
           <div class="upload-container" v-if="displayUpload">
             <md-field>
               <label>Upload your photos</label>
@@ -67,8 +74,6 @@ export default {
       this.loading = true;
       this.displayUpload = false;
 
-      console.log(this.files);
-
       const formData = new FormData();
 
       for(let i = 0; i < this.files.length; i++) {
@@ -120,6 +125,11 @@ h4 {
 }
 .fast-img {
   max-height: 500px;
+}
+.legend-container {
+  text-align: center;
+  font-size: 1.5em;
+  text-shadow: 1px 1px black;
 }
 @media only screen and (max-width: 1400px) {
   .feature-control {

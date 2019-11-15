@@ -27,7 +27,7 @@
               <div v-for="photo in processedFiles">
                 <div>
                   <h4>Detected {{photo.objects}} objects in the following image</h4>
-                  <img v-bind:src="'data:image/jpg;base64,'+photo.annotated"/>
+                  <img v-bind:src="'data:image/jpg;base64,'+photo.annotated" class="fast-img"/>
                   <hr>
                 </div>
               </div>
@@ -58,15 +58,30 @@ export default {
       this.files = files;
       this.$toasted.show("Images were loaded")
     },
-    processPhotos: function() {
+    processPhotos: async function() {
+      if(this.files.length == 0) {
+        this.$toasted.show("Images were not loaded");
+        return;
+      }
+      
       this.loading = true;
       this.displayUpload = false;
+
       console.log(this.files);
-      //compose request
-      //send to server
-      //parse result
-      this.processedFiles.push({annotated: "base64here", objects: 5}, {annotated: "abc", objects: 5})
-      // this.displayUpload = false;
+
+      const formData = new FormData();
+
+      for(let i = 0; i < this.files.length; i++) {
+        formData.append("photos", this.files[i]);
+      }
+      
+      const result = await this.$axios.post(this.baseUrl + "/fast", formData, {
+        headers: {'Content-Type': 'multipart/form-data'}});
+
+      for(let i = 0; i < result.data.annotated.length; i++) {
+        this.processedFiles.push({annotated: result.data.annotated[i], objects: result.data.objects[i]});
+      }
+      this.loading = false;
     }
   },
   mounted: function() {
@@ -103,8 +118,8 @@ export default {
 h4 {
   margin: 0;
 }
-img {
-  max-height: 600px;
+.fast-img {
+  max-height: 500px;
 }
 @media only screen and (max-width: 1400px) {
   .feature-control {

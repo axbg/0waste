@@ -8,7 +8,7 @@ import Catalogue from '../views/Catalogue.vue'
 
 Vue.use(VueRouter)
 
-const baseUrl = "http://localhost:8081";
+const baseUrl = "http://localhost:8081/api";
 const routes = [
   {
     path: '/',

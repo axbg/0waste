@@ -2,9 +2,7 @@
   <div class="background-container">
   <div class="login-container">
     <md-card class="md-elevation-12">
-      <md-card-header>
-        <div class="md-title">0waste</div>
-      </md-card-header>
+        <img src="/logo.png">
       <md-card-content class="credentials-container">
         <md-field md-clearable>
           <label>Email</label>

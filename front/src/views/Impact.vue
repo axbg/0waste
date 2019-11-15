@@ -36,7 +36,7 @@
           </div>
           <div v-else-if="loading">
             <md-progress-spinner class="md-accent" md-mode="indeterminate" :md-diameter="100"></md-progress-spinner>
-            <h3>Working hard. It may take a few seconds...."</h3>
+            <h3>Working hard. It may take a few seconds....</h3>
           </div>
           <div class="result-container" v-else="!displayUpload && !loading">
               <div v-for="photo in processedFiles">
@@ -76,9 +76,9 @@ export default {
     },
     computeEvolution: function(before, after) {
       if(before > after) {
-        return '<h3 style="color: green">Congrats! The plastic waste level was reduced by ' + ((before - after)*100/before) + '%!😊<h3>';
+        return '<h3 style="color: green">Congrats! The plastic waste level was reduced by ' + parseInt(((before - after)*100/before)) + '%!😊<h3>';
       } else if(before < after) {
-        return '<h3 style="color: red">Bad news! The plastic waste level was increased with ' + ((after - before)*100/after) + '%😢</h3>';
+        return '<h3 style="color: red">Bad news! The plastic waste level was increased with ' + parseInt(((after - before)*100/after)) + '%😢</h3>';
       } else {
         return "<h3>Nothing has changed 😟</h3>";
       }

@@ -1,0 +1,119 @@
+<template>
+  <div class="home-container">
+    <md-toolbar class="md-dense md-accent sticky" md-elevation="1" >
+      <h4>Hi {{this.username}}, ready to change the world?</h4>
+      <div @click="logout" style="flex:2">
+        <md-icon class="logout-icon">clear</md-icon>
+      </div>
+    </md-toolbar>
+    <div class="feature-container">
+      <md-card class="feature-control">
+        <md-card-header>
+          <div class="md-title">Fast Tracking</div>
+        </md-card-header>
+        <md-card-content class="card-content">
+          <p>Upload one or more photos of different places and generate a heatmap of plastic waste</p>
+          <div class="upload-container" v-if="displayUpload">
+            <md-field>
+              <label>Upload your photos</label>
+              <md-file multiple @md-change="uploadPhotos"/>
+            </md-field>
+            <md-button class="md-raised md-accent loader" @click="processPhotos">Process photos</md-button>
+          </div>
+          <div v-else-if="loading">
+            <md-progress-spinner class="md-accent" md-mode="indeterminate" :md-diameter="100"></md-progress-spinner>
+          </div>
+          <div class="result-container" v-else="!displayUpload && !loading">
+              <div v-for="photo in processedFiles">
+                <div>
+                  <h4>Detected {{photo.objects}} objects in the following image</h4>
+                  <img v-bind:src="'data:image/jpg;base64,'+photo.annotated"/>
+                  <hr>
+                </div>
+              </div>
+          </div>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "home",
+  data: () => ({
+    username: "",
+    displayUpload: true,
+    loading: false,
+    files: [],
+    processedFiles: []
+  }),
+  props: ["baseUrl"],
+  methods: {
+    logout: function() {
+      localStorage.removeItem("username");
+      location.reload();
+    },
+    uploadPhotos: function(files) {
+      this.files = files;
+      this.$toasted.show("Images were loaded")
+    },
+    processPhotos: function() {
+      this.loading = true;
+      this.displayUpload = false;
+      console.log(this.files);
+      //compose request
+      //send to server
+      //parse result
+      this.processedFiles.push({annotated: "base64here", objects: 5}, {annotated: "abc", objects: 5})
+      // this.displayUpload = false;
+    }
+  },
+  mounted: function() {
+    this.username = localStorage.getItem("username");
+  }
+};
+</script>
+
+<style>
+.home-container {
+  display: inline-block;
+  width: 100%;
+}
+.logout-icon {
+  float: right;
+  cursor: pointer;
+}
+.username-container {
+  float: left;
+  margin-left: 2%;
+}
+.feature-container {
+  margin: 0 auto;
+  width: 100%;
+}
+.feature-control {
+  margin: 0 auto;
+  margin-top: 5vh;
+  width: 80%;
+}
+.card-content *{
+  text-align: center;
+}
+h4 {
+  margin: 0;
+}
+img {
+  max-height: 600px;
+}
+@media only screen and (max-width: 1400px) {
+  .feature-control {
+    width: 90%;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .feature-control {
+    width: 90%;
+  }
+}
+</style>

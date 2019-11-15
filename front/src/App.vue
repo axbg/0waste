@@ -9,6 +9,7 @@
 <style>
 html, body, #app {
   height: 100%;
+  background-color: whitesmoke;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -20,5 +21,14 @@ html, body, #app {
 .container {
   width: 100%;
   height: 100%;
+  background-color: whitesmoke;
+}
+a {
+  text-decoration: none !important;
+  color: black !important;
+}
+.sticky {
+  position: sticky !important; 
+  top:1px;
 }
 </style>

@@ -7,6 +7,7 @@ import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 import Toasted from 'vue-toasted';
 import axios from 'axios';
+import VueUploadComponent from 'vue-upload-component';
 
 const Options = {
   duration: 1500,
@@ -16,6 +17,7 @@ const Options = {
 Vue.config.productionTip = false
 Vue.use(VueMaterial)
 Vue.use(Toasted, Options)
+Vue.component('file-upload', VueUploadComponent)
 Vue.prototype.$axios = axios;
 
 new Vue({

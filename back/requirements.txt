@@ -1,0 +1,6 @@
+Django
+opencv-python
+Pillow==2.1.0
+google-cloud-automl
+djangorestframework
+django-cors-headers

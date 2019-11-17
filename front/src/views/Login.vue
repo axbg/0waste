@@ -1,21 +1,11 @@
 <template>
   <div class="background-container">
-  <div class="login-container">
-    <md-card class="md-elevation-12">
-        <img src="/logo.png">
-      <md-card-content class="credentials-container">
-        <md-field md-clearable>
-          <label>Email</label>
-          <md-input v-model="email" ref="email"></md-input>
-        </md-field>
-        <md-field :md-toggle-password="true">
-          <label>Password</label>
-          <md-input v-model="password" type="password" ref="password"></md-input>
-        </md-field>
-        <md-button class="md-raised md-accent" @click="login">Let's go</md-button>
-      </md-card-content>
-    </md-card>
-  </div>
+    <div class="login-container">
+      <md-card class="md-elevation-12 content-container">
+        <img src="/logo.png" />
+        <md-button class="md-raised md-accent big-btn" @click="login">Let's go</md-button>
+      </md-card>
+    </div>
   </div>
 </template>
 
@@ -23,34 +13,10 @@
 export default {
   name: "login",
   props: ["baseUrl"],
-  data: () => ({
-    email: "",
-    password: ""
-  }),
+  data: () => ({}),
   methods: {
-    login: async function() {
-      if (
-        this.email === "" ||
-        !this.email.includes("@") ||
-        !this.email.includes(".")
-      ) {
-        this.email = "";
-        this.$refs.email.$el.focus();
-        this.$toasted.show("Email is not valid");
-        return;
-      }
-      if (this.password === "") {
-        this.password = "";
-        this.$refs.password.$el.focus();
-        this.$toasted.show("Password cannot be empty");
-        return;
-      }
-      try {
-        localStorage.setItem("username", this.email.split("@")[0]);
-        this.$router.push({ name: "home" });
-      } catch (ex) {
-        this.$toasted.show("Incorrect credentials");
-      }
+    login: function() {
+      this.$router.push({ name: "home" });
     }
   }
 };
@@ -59,8 +25,9 @@ export default {
 <style>
 .background-container {
   background-image: url("https://images.pexels.com/photos/1533720/pexels-photo-1533720.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
-  height:100%;
-  width:100%;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
 }
 .login-container {
   margin: 0 auto;
@@ -68,9 +35,11 @@ export default {
   margin-top: 20vh;
   display: inline-block;
 }
-.credentials-container {
-  margin: 0 auto;
-  width: 80%;
+.content-container {
+  padding: 20px;
+}
+.big-btn {
+  width: 150px;
 }
 @media only screen and (max-width: 1200px) {
   .login-container {

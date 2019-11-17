@@ -1,18 +1,20 @@
 <template>
   <div id="app">
     <div class="container">
-      <router-view/>
+      <router-view />
     </div>
   </div>
 </template>
 
 <style>
-html, body, #app {
+html,
+body,
+#app {
   height: 100%;
   background-color: whitesmoke;
 }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -28,7 +30,7 @@ a {
   color: black !important;
 }
 .sticky {
-  position: sticky !important; 
-  top:1px;
+  position: sticky !important;
+  top: 1px;
 }
 </style>

@@ -11,7 +11,7 @@
             <h3>Loading everything...</h3>
           </div>
           <div v-else>
-            <div v-for="photo in processedFiles" class="image-gallery" :key="photo">
+            <div v-for="(photo, index) in processedFiles" class="image-gallery" :key="index">
               <img v-bind:src="'data:image/jpg;base64,'+photo" class="image-entry" />
             </div>
           </div>

@@ -1,5 +1,10 @@
+import io
+import cv2
+import base64
 import numpy as np
+
 from PIL import Image
+from google.cloud import automl_v1beta1
 
 def get_color_by_type(waste_type):
     if(waste_type == "bag"):

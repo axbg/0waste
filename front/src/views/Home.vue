@@ -2,8 +2,10 @@
   <div class="home-container">
     <md-toolbar class="md-dense md-accent sticky" md-elevation="1">
       <h4>Ready to change the world?</h4>
-      <div @click="logout" style="flex:2">
-        <md-icon class="logout-icon">clear</md-icon>
+      <div style="flex: 2">
+        <div @click="logout">
+          <md-icon class="logout-icon">clear</md-icon>
+        </div>
       </div>
     </md-toolbar>
     <router-view></router-view>

@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  name: "menu",
+  name: "dashboard",
   data: () => ({}),
   props: ["baseUrl"]
 };

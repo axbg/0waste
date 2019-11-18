@@ -16,7 +16,7 @@ export default {
   data: () => ({}),
   methods: {
     login: function() {
-      this.$router.push({ name: "home" });
+      this.$router.push({ name: "dashboard" });
     }
   }
 };
@@ -41,7 +41,12 @@ export default {
 .big-btn {
   width: 150px;
 }
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1170px) {
+  .login-container {
+    width: 50%;
+  }
+}
+@media only screen and (max-width: 654px) {
   .login-container {
     width: 90%;
   }

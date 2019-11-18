@@ -32,7 +32,7 @@
           <h3>Working hard. It may take a few seconds....</h3>
         </div>
         <div class="result-container" v-else>
-          <div v-for="photo in processedFiles" :key="photo">
+          <div v-for="(photo, index) in processedFiles" :key="index">
             <md-card class="md-elevation-5">
               <div v-html="computeEvolution(photo.objectsBefore, photo.objectsAfter)"></div>
               <img v-bind:src="'data:image/jpg;base64,'+photo.before" class="impact-photo" />

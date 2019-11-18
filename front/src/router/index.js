@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import FastTracking from '../views/FastTracking.vue'
-import Menu from '../views/Menu.vue'
+import Dashboard from '../views/Dashboard.vue'
 import Impact from '../views/Impact.vue'
 import Catalogue from '../views/Catalogue.vue'
 
@@ -13,30 +13,29 @@ const baseUrl = "http://localhost:8081/api";
 const routes = [
   {
     path: '/',
-    name: 'home',
     component: Home,
     props: { baseUrl: baseUrl },
     children: [
       {
-        path: '/',
-        name: 'menu',
-        component: Menu,
+        path: '',
+        name: 'dashboard',
+        component: Dashboard,
         props: { baseUrl: baseUrl }
       },
       {
-        path: '/fast',
+        path: 'fast',
         name: 'fast',
         component: FastTracking,
         props: { baseUrl: baseUrl }
       },
       {
-        path: '/impact',
+        path: 'impact',
         name: 'impact',
         component: Impact,
         props: { baseUrl: baseUrl }
       },
       {
-        path: '/catalogue',
+        path: 'catalogue',
         name: 'catalogue',
         component: Catalogue,
         props: { baseUrl: baseUrl }

@@ -25,7 +25,7 @@
           <h3>Looking for waste...</h3>
         </div>
         <div class="result-container" v-else>
-          <div v-for="photo in processedFiles" :key="photo">
+          <div v-for="(photo, index) in processedFiles" :key="index">
             <div>
               <h4>Detected {{photo.objects}} objects in the following image</h4>
               <img v-bind:src="'data:image/jpg;base64,'+photo.annotated" class="fast-img" />

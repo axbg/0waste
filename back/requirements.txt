@@ -1,6 +1,6 @@
 Django
 opencv-python
 Pillow==2.1.0
-google-cloud-automl
+google-cloud
 djangorestframework
 django-cors-headers
